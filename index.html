@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+    body {
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: forestgreen;
+        margin: 0;
+    }
+
+    .game-container {
+        text-align: center;
+        background: #81A263;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .choices {
+        margin: 20px 0;
+    }
+
+    button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .result p {
+        margin: 10px 0;
+        font-size: 18px;
+    }
+</style>
+
+<body>
+    <div class="game-container">
+        <h1>Rock Paper Scissors</h1>
+        <div class="choices">
+            <button id="rock">
+                <img src="rock.jpg">
+            </button>
+            <button id="paper">
+                <img src="paper.jpg">
+            </button>
+            <button id="paper">
+                <img src="scissor.jpg">
+            </button>
+        </div>
+        <div class="result">
+            <p>Your Pick: <span id="your-pick"></span></p>
+            <p>Enemy's Pick: <span id="enemy-pick"></span></p>
+            <p>Result: <span id="game-result"></span></p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const choices = ['rock', 'paper', 'scissors'];
+            const buttons = document.querySelectorAll('button');
+            const yourPickDisplay = document.getElementById('your-pick');
+            const enemyPickDisplay = document.getElementById('enemy-pick');
+            const gameResultDisplay = document.getElementById('game-result');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const yourPick = button.id;
+                    const enemyPick = choices[Math.floor(Math.random() * choices.length)];
+                    const result = determineWinner(yourPick, enemyPick);
+
+                    yourPickDisplay.textContent = yourPick;
+                    enemyPickDisplay.textContent = enemyPick;
+                    gameResultDisplay.textContent = result;
+                });
+            });
+
+            function determineWinner(yourPick, enemyPick) {
+                if (yourPick === enemyPick) {
+                    return "It's a tie!";
+                } else if (
+                    (yourPick === 'rock' && enemyPick === 'scissor') ||
+                    (yourPick === 'paper' && enemyPick === 'rock') ||
+                    (yourPick === 'scissor' && enemyPick === 'paper')
+                ) {
+                    return "You win!";
+                } else {
+                    return "You lose!";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
